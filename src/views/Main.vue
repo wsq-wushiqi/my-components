@@ -3,7 +3,7 @@
  * @Descripttion: 调用组件
  * @Date: 2021-03-02 13:38:01
  * @LastEditor: Wushiqi
- * @LastEditTime: 2021-04-13 10:01:47
+ * @LastEditTime: 2021-04-13 10:25:32
 -->
 <template>
   <div class="components-show">
@@ -29,19 +29,27 @@
 
     <p></p>
     
+    <span>树形列表分段加载：</span>
     <segment-load :data="treeData" class="segment-load-box" />
 
+    <p></p>
+
+    <span>输入快速定位：</span>
+    <anchor :data="anchorData" class="anchor-box" />
+
+    <p></p>
   </div>
 </template>
 
 <script>
-import { DateSelect, RadioTable, PageLoading, SegmentLoad } from '@/components/index'
+import { DateSelect, RadioTable, PageLoading, SegmentLoad, Anchor } from '@/components/index'
 export default {
   components: {
     DateSelect,
     RadioTable,
     PageLoading,
-    SegmentLoad
+    SegmentLoad,
+    Anchor
   },
   data() {
     return {
@@ -64,13 +72,15 @@ export default {
         type: '水果'
       }],
       showMask: false,
-      treeData: []
+      treeData: [],
+      anchorData: []
     }
   },
   mounted() {
     this.$nextTick(() => {
       this.$refs.dateSelect.reset() // 重置日期,默认选中今天
     })
+    // 分段加载树形列表数据
     this.treeData = []
     for (let i = 0; i < 50; i++) {
       let children = []
@@ -88,7 +98,14 @@ export default {
         id: `${i}`
       })
     }
-    console.log(this.treeData);
+    // 快速定位列表数据
+    const str = 'affervdknjsdlkkroppgfdptuennreenjdsafmldrwsfksafsa'
+    console.log(str.length);
+    this.anchorData = []
+    for (let i = 0; i < 50; i++) {
+    	this.anchorData.push({ value: `${str[i]}_${i + 1}`, index: i })
+    }
+    console.log(this.anchorData);
   },
   methods: {
     // 日期变化
@@ -117,6 +134,12 @@ export default {
     margin: 0 auto;
     width: 250px;
     height: 300px;
+  }
+  .anchor-box {
+    width: 250px;
+    height: 300px;
+    margin: 0 auto;
+    border: 1px solid gray;
   }
 }
 </style>
