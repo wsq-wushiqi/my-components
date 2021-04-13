@@ -3,7 +3,7 @@
  * @Descripttion: 调用组件
  * @Date: 2021-03-02 13:38:01
  * @LastEditor: Wushiqi
- * @LastEditTime: 2021-04-13 10:25:32
+ * @LastEditTime: 2021-04-13 11:06:31
 -->
 <template>
   <div class="components-show">
@@ -38,18 +38,23 @@
     <anchor :data="anchorData" class="anchor-box" />
 
     <p></p>
+
+    <span>按shift批量选择数据：</span>
+    <shift-select :data="shiftData" class="shift-select-box" />
+
   </div>
 </template>
 
 <script>
-import { DateSelect, RadioTable, PageLoading, SegmentLoad, Anchor } from '@/components/index'
+import { DateSelect, RadioTable, PageLoading, SegmentLoad, Anchor, ShiftSelect } from '@/components/index'
 export default {
   components: {
     DateSelect,
     RadioTable,
     PageLoading,
     SegmentLoad,
-    Anchor
+    Anchor,
+    ShiftSelect
   },
   data() {
     return {
@@ -73,7 +78,8 @@ export default {
       }],
       showMask: false,
       treeData: [],
-      anchorData: []
+      anchorData: [],
+      shiftData: []
     }
   },
   mounted() {
@@ -105,7 +111,12 @@ export default {
     for (let i = 0; i < 50; i++) {
     	this.anchorData.push({ value: `${str[i]}_${i + 1}`, index: i })
     }
-    console.log(this.anchorData);
+    // 按shift批量选择数据列表
+    this.shiftData = []
+    for (let i = 0; i < 50; i++) {
+      this.shiftData.push({ name: `Hello_${i}`, index: i })
+    }
+    console.log(this.shiftData);
   },
   methods: {
     // 日期变化
@@ -140,6 +151,10 @@ export default {
     height: 300px;
     margin: 0 auto;
     border: 1px solid gray;
+  }
+  .shift-select-box {
+    width: 300px;
+    height: 300px;
   }
 }
 </style>
