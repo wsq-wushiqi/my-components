@@ -3,7 +3,7 @@
  * @Descripttion: 调用组件
  * @Date: 2021-03-02 13:38:01
  * @LastEditor: Wushiqi
- * @LastEditTime: 2021-03-02 14:45:26
+ * @LastEditTime: 2021-04-13 10:01:47
 -->
 <template>
   <div class="components-show">
@@ -25,19 +25,23 @@
     <span>页面遮罩层：</span>
     <el-button @click="handleShwoMask">显示</el-button>
     <page-loading :showModal="showMask" />
-    <div class="modal-example"></div>
+    <!-- <div class="modal-example"></div> -->
+
     <p></p>
     
+    <segment-load :data="treeData" class="segment-load-box" />
+
   </div>
 </template>
 
 <script>
-import { DateSelect, RadioTable, PageLoading } from '@/components/index'
+import { DateSelect, RadioTable, PageLoading, SegmentLoad } from '@/components/index'
 export default {
   components: {
     DateSelect,
     RadioTable,
-    PageLoading
+    PageLoading,
+    SegmentLoad
   },
   data() {
     return {
@@ -60,12 +64,31 @@ export default {
         type: '水果'
       }],
       showMask: false,
+      treeData: []
     }
   },
   mounted() {
     this.$nextTick(() => {
       this.$refs.dateSelect.reset() // 重置日期,默认选中今天
     })
+    this.treeData = []
+    for (let i = 0; i < 50; i++) {
+      let children = []
+      for (let j = 0; j < Math.ceil(Math.random()*10000); j++) {
+        // children.push(String(j))
+        children.push({
+          children: [],
+          text: `content${i} - ${j}`,
+          id: `${i}-${j}`
+        })
+      }
+      this.treeData.push({
+        children,
+        text: `parent - ${i}`,
+        id: `${i}`
+      })
+    }
+    console.log(this.treeData);
   },
   methods: {
     // 日期变化
@@ -77,7 +100,7 @@ export default {
       this.showMask = true
       setTimeout(() => {
         this.showMask = false
-      }, 5000);
+      }, 3000);
     }
   }
 }
@@ -89,6 +112,11 @@ export default {
     width: 100%;
     height: 300px;
     background: transparent url(../components/03-PageLoading/loading.gif) no-repeat center;
+  }
+  .segment-load-box {
+    margin: 0 auto;
+    width: 250px;
+    height: 300px;
   }
 }
 </style>
