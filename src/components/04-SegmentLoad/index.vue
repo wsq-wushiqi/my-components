@@ -3,7 +3,7 @@
  * @Descripttion: 大量数据的树形列表分段加载
  * @Date: 2021-03-31 15:57:30
  * @LastEditor: Wushiqi
- * @LastEditTime: 2021-04-13 09:59:11
+ * @LastEditTime: 2021-04-13 10:04:06
 -->
 <template>
   <div ref="myPage" class="page-container">
@@ -49,24 +49,6 @@ export default {
     }
   },
   mounted() {
-    // 造数据
-    // this.originTreeData = []
-    // for (let i = 0; i < 50; i++) {
-      //   let children = []
-    //   for (let j = 0; j < Math.ceil(Math.random()*10000); j++) {
-      //     // children.push(String(j))
-    //     children.push({
-      //       children: [],
-    //       text: `content${i} - ${j}`,
-    //       id: `${i}-${j}`
-    //     })
-    //   }
-    //   this.originTreeData.push({
-      //     children,
-    //     text: `parent - ${i}`,
-    //     id: `${i}`
-    //   })
-    // }
     // 从父组件获取数据
     this.$nextTick(() => {
       this.originTreeData = this.data
@@ -240,9 +222,6 @@ export default {
 
 <style lang="scss" scoped>
 .page-container {
-  // width: 200px;
-  // height: 350px;
-  // margin: 50px auto;
   border: 1px solid rgb(97, 115, 167);
   overflow: auto;
   .tree-footer {
